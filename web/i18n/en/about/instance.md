@@ -30,6 +30,8 @@ api keys can be used to bypass the restrictions against the api. however, api ke
 <li>no spam requests</li>
 </ul>
 keys can be revoked at any point under the discretion of this instance owner.
+
+to request an api key, see the information above.
 </section>
 
 <section id="credits">
