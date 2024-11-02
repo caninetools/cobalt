@@ -13,8 +13,10 @@ import { migrate } from '$lib/settings/migrate';
 const updatePlausiblePreference = (settings: PartialSettings) => {
     if (settings.privacy?.disableAnalytics) {
         localStorage.setItem('plausible_ignore', 'true');
+        localStorage.setItem('umami.disabled', '1');
     } else if (localStorage.getItem('plausible_ignore') !== null) {
         localStorage.removeItem('plausible_ignore');
+        localStorage.removeItem('umami.disabled');
     }
 }
 

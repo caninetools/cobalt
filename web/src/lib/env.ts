@@ -14,6 +14,9 @@ const variables = {
     PLAUSIBLE_HOST: getEnv('PLAUSIBLE_HOST'),
     PLAUSIBLE_ENABLED: getEnv('HOST') && getEnv('PLAUSIBLE_HOST'),
     DEFAULT_API: getEnv('DEFAULT_API'),
+    UMAMI_HOST: getEnv('UMAMI_HOST'),
+    UMAMI_ENABLED: getEnv('HOST') && getEnv('UMAMI_HOST'),
+    UMAMI_WEBSITE_ID: getEnv('UMAMI_WEBSITE_ID'),
 }
 
 const contacts = {

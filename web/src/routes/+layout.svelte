@@ -65,6 +65,14 @@
         >
         </script>
     {/if}
+    {#if env.UMAMI_ENABLED}
+        <script
+            defer
+            data-website-id={env.UMAMI_WEBSITE_ID}
+            src="https://{env.UMAMI_HOST}/script.js"
+        >
+        </script>
+    {/if}
 </svelte:head>
 
 <div style="display: contents" data-theme={browser ? $currentTheme : undefined} lang={$locale}>

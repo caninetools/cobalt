@@ -17,16 +17,32 @@
 </SettingsCategory>
 
 {#if env.PLAUSIBLE_ENABLED}
-    <SettingsCategory sectionId="analytics" title={$t("settings.privacy.analytics")}>
+    <SettingsCategory sectionId="plausible" title={$t("settings.privacy.plausible")}>
         <SettingsToggle
             settingContext="privacy"
             settingId="disableAnalytics"
-            title={$t("settings.privacy.analytics.title")}
-            description={$t("settings.privacy.analytics.description")}
+            title={$t("settings.privacy.plausible.title")}
+            description={$t("settings.privacy.plausible.description")}
         />
         <div class="subtext learn-more-plausible">
             <OuterLink href="https://plausible.io/privacy-focused-web-analytics">
-                {$t("settings.privacy.analytics.learnmore")}
+                {$t("settings.privacy.plausible.learnmore")}
+            </OuterLink>
+        </div>
+    </SettingsCategory>
+{/if}
+
+{#if env.UMAMI_ENABLED}
+    <SettingsCategory sectionId="umami" title={$t("settings.privacy.umami")}>
+        <SettingsToggle
+            settingContext="privacy"
+            settingId="disableAnalytics"
+            title={$t("settings.privacy.umami.title")}
+            description={$t("settings.privacy.umami.description")}
+        />
+        <div class="subtext learn-more-plausible">
+            <OuterLink href="https://umami.is/features">
+                {$t("settings.privacy.umami.learnmore")}
             </OuterLink>
         </div>
     </SettingsCategory>

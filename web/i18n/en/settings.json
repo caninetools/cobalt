@@ -98,10 +98,15 @@
     "language.preferred.title": "preferred language",
     "language.preferred.description": "this language will be used when automatic selection is disabled. any text that isn't translated will be displayed in english.\n\nsome languages use community-sourced translations, they may be inaccurate or incomplete.",
 
-    "privacy.analytics": "anonymous traffic analytics",
-    "privacy.analytics.title": "don't contribute to analytics",
-    "privacy.analytics.description": "anonymous traffic analytics are needed to get an approximate number of active cobalt users. no identifiable information about you is ever stored. all processed data is anonymized and aggregated.\n\nwe use a self-hosted plausible instance that doesn't use cookies and is fully compliant with GDPR, CCPA, and PECR.",
-    "privacy.analytics.learnmore": "learn more about plausible's dedication to privacy.",
+    "privacy.plausible": "anonymous traffic analytics",
+    "privacy.plausible.title": "don't contribute to analytics",
+    "privacy.plausible.description": "anonymous traffic analytics are needed to get an approximate number of active cobalt users. no identifiable information about you is ever stored. all processed data is anonymized and aggregated.\n\nwe use a self-hosted plausible instance that doesn't use cookies and is fully compliant with GDPR, CCPA, and PECR.",
+    "privacy.plausible.learnmore": "learn more about plausible's dedication to privacy.",
+
+    "privacy.umami": "anonymous traffic analytics",
+    "privacy.umami.title": "don't contribute to analytics",
+    "privacy.umami.description": "anonymous traffic analytics are needed to get an approximate number of active cobalt users. no identifiable information about you is ever stored. all processed data is anonymized and aggregated.\n\nwe use a self-hosted umami instance that doesn't use cookies and is fully compliant with GDPR, CCPA, and PECR.",
+    "privacy.umami.learnmore": "learn more about umami's dedication to privacy.",
 
     "privacy.tunnel": "tunneling",
     "privacy.tunnel.title": "always tunnel files",
