@@ -8,6 +8,8 @@
     "page.terms": "terms and ethics",
     "page.credits": "thanks & licenses",
 
+    "page.instance": "instance information",
+
     "heading.general": "general terms",
     "heading.licenses": "licenses",
     "heading.summary": "best way to save what you love",
@@ -22,6 +24,9 @@
     "heading.abuse": "reporting abuse",
     "heading.motivation": "motivation",
     "heading.testers": "beta testers",
+    "heading.instance": "instance information",
+    "heading.apikeys": "api keys",
+    "heading.credits": "credits & source",
 
     "support.github": "check out cobalt's source code, contribute changes, or report issues",
     "support.discord": "chat with the community and developers about cobalt or ask for help",

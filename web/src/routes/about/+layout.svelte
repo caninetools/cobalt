@@ -8,6 +8,7 @@
 
     import IconLock from "@tabler/icons-svelte/IconLock.svelte";
     import IconComet from "@tabler/icons-svelte/IconComet.svelte";
+    import IconQuestion from "@tabler/icons-svelte/IconHelpHexagon.svelte";
     import IconLicense from "@tabler/icons-svelte/IconLicense.svelte";
     import IconChecklist from "@tabler/icons-svelte/IconChecklist.svelte";
     import IconUsersGroup from "@tabler/icons-svelte/IconUsersGroup.svelte";
@@ -28,6 +29,13 @@
                 iconColor="blue"
             >
                 <IconComet />
+            </PageNavTab>
+            <PageNavTab
+                tabPath="/about/instance"
+                tabTitle={$t("about.page.instance")}
+                iconColor="gray"
+            >
+                <IconQuestion />
             </PageNavTab>
             <PageNavTab
                 tabPath="/about/community"
