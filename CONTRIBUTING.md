@@ -9,6 +9,7 @@ we are currently accepting translations via the [i18n platform](https://i18n.imp
 thank you for showing interest in making cobalt more accessible around the world, we really appreciate it! here are some guidelines for how a cobalt translation should look:
 
 - cobalt's writing style is informal. please do not use formal language, unless there is no other way to express the same idea of the original text in your language.
+- all cobalt text is written in lowercase. this is a stylistic choice, please do not capitalize translated sentences.
 - do not translate the name "cobalt", or "imput"
 - you can translate "meowbalt" into whatever your language's equivalent of _meow_ is (e.g. _miaubalt_ in German)
 - **please don't translate cobalt into languages which you are not experienced in.** we can use google translate ourselves, but we would prefer cobalt to be translated by humans, not computers.
@@ -18,6 +19,8 @@ if your language does not exist on the translation platform yet, you can request
 before translating a piece of text, check that no one has made a translation yet. pending translations are displayed in the **Suggestions** tab on the translate page. if someone already made a suggestion, and you think it's correct, you can upvote it! this helps us distinguish that a translation is correct.
 
 if no one has submitted a translation, or the submitted translation seems wrong to you, you can submit your translation by clicking the **Suggest** button for each individual string, which sends it off for human review. we will then check it to to ensure no malicious translations are submitted, and add it to cobalt.
+
+if any translation string's meaning seems unclear to you, please leave a comment on the *Comments* tab, and we will either add an explanation or a screenshot.
 
 ## adding features or support for services
 before putting in the effort to implement a feature, it's worth considering whether it would be appropriate to add it to cobalt. the cobalt api is built to assist people **only with downloading freely accessible content**. other functionality, such as:
