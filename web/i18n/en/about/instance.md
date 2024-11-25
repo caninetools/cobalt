@@ -35,7 +35,7 @@ keys can be revoked at any point under the discretion of this instance owner.
 <section id="credits">
 <SectionHeading
     title={$t("about.heading.credits")}
-    sectionId="apikeys"
+    sectionId="credits"
 />
 
 this version of cobalt web is running a fork, licensed under the same license as cobalt. you can find the changes of the fork [here](https://github.com/caninetools/cobalt).
