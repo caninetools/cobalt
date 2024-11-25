@@ -1,7 +1,5 @@
 import HLS from "hls-parser";
-
 import { env } from "../../config.js";
-import { cleanString } from "../../misc/utils.js";
 
 async function requestJSON(url) {
     try {
@@ -35,6 +33,10 @@ export default async function(obj) {
     const play = await requestJSON(requestURL);
     if (!play) return { error: "fetch.fail" };
 
+    if (play.detail?.type === "blocking_rule") {
+        return { error: "content.video.region" };
+    }
+
     if (play.detail || !play.video_balancer) return { error: "fetch.empty" };
     if (play.live_streams?.hls) return { error: "content.video.live" };
 
@@ -59,8 +61,8 @@ export default async function(obj) {
     });
 
     const fileMetadata = {
-        title: cleanString(play.title.trim()),
-        artist: cleanString(play.author.name.trim()),
+        title: play.title.trim(),
+        artist: play.author.name.trim(),
     }
 
     return {

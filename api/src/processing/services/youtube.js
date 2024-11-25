@@ -4,7 +4,6 @@ import { fetch } from "undici";
 import { Innertube, Session } from "youtubei.js";
 
 import { env } from "../../config.js";
-import { cleanString } from "../../misc/utils.js";
 import { getCookie, updateCookieValues } from "../cookie/manager.js";
 
 const PLAYER_REFRESH_PERIOD = 1000 * 60 * 15; // ms
@@ -143,13 +142,22 @@ export default async function(o) {
     try {
         info = await yt.getBasicInfo(o.id, useHLS ? 'IOS' : 'ANDROID');
     } catch (e) {
-        if (e?.info?.reason === "This video is private") {
-            return { error: "content.video.private" };
-        } else if (e?.message === "This video is unavailable") {
-            return { error: "content.video.unavailable" };
-        } else {
-            return { error: "fetch.fail" };
+        if (e?.info) {
+            const errorInfo = JSON.parse(e?.info);
+
+            if (errorInfo?.reason === "This video is private") {
+                return { error: "content.video.private" };
+            }
+            if (["INVALID_ARGUMENT", "UNAUTHENTICATED"].includes(errorInfo?.error?.status)) {
+                return { error: "youtube.api_error" };
+            }
         }
+
+        if (e?.message === "This video is unavailable") {
+            return { error: "content.video.unavailable" };
+        }
+
+        return { error: "fetch.fail" };
     }
 
     if (!info) return { error: "fetch.fail" };
@@ -394,8 +402,8 @@ export default async function(o) {
     }
 
     const fileMetadata = {
-        title: cleanString(basicInfo.title.trim()),
-        artist: cleanString(basicInfo.author.replace("- Topic", "").trim())
+        title: basicInfo.title.trim(),
+        artist: basicInfo.author.replace("- Topic", "").trim()
     }
 
     if (basicInfo?.short_description?.startsWith("Provided to YouTube by")) {

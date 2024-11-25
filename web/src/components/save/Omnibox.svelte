@@ -1,4 +1,6 @@
 <script lang="ts">
+    import env from "$lib/env";
+
     import { page } from "$app/stores";
     import { goto } from "$app/navigation";
     import { browser } from "$app/environment";
@@ -7,22 +9,18 @@
     import { t } from "$lib/i18n/translations";
 
     import dialogs from "$lib/state/dialogs";
-
     import { link } from "$lib/state/omnibox";
-    import { cachedInfo } from "$lib/api/server-info";
     import { updateSetting } from "$lib/state/settings";
-    import { turnstileLoaded } from "$lib/state/turnstile";
+    import { turnstileEnabled, turnstileSolved } from "$lib/state/turnstile";
 
     import type { Optional } from "$lib/types/generic";
     import type { DownloadModeOption } from "$lib/types/settings";
-
-    import IconLink from "@tabler/icons-svelte/IconLink.svelte";
-    import IconLoader2 from "@tabler/icons-svelte/IconLoader2.svelte";
 
     import ClearButton from "$components/save/buttons/ClearButton.svelte";
     import DownloadButton from "$components/save/buttons/DownloadButton.svelte";
 
     import Switcher from "$components/buttons/Switcher.svelte";
+    import OmniboxIcon from "$components/save/OmniboxIcon.svelte";
     import ActionButton from "$components/buttons/ActionButton.svelte";
     import SettingsButton from "$components/buttons/SettingsButton.svelte";
 
@@ -38,7 +36,8 @@
 
     let isDisabled = false;
     let isLoading = false;
-    let isBotCheckOngoing = false;
+
+    $: isBotCheckOngoing = $turnstileEnabled && !$turnstileSolved;
 
     const validLink = (url: string) => {
         try {
@@ -58,16 +57,6 @@
 
         // clear hash and query to prevent bookmarking unwanted links
         goto("/", { replaceState: true });
-    }
-
-    $: if ($cachedInfo?.info?.cobalt?.turnstileSitekey) {
-        if ($turnstileLoaded) {
-            isBotCheckOngoing = false;
-        } else {
-            isBotCheckOngoing = true;
-        }
-    } else {
-        isBotCheckOngoing = false;
     }
 
     const pasteClipboard = () => {
@@ -134,23 +123,23 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
+<!--
+    if you want to remove the community instance label,
+    refer to the license first https://github.com/imputnet/cobalt/tree/main/web#license
+-->
+{#if env.DEFAULT_API || (!$page.url.host.endsWith(".cobalt.tools") && $page.url.host !== "cobalt.tools")}
+    <div id="instance-label">
+        {$t("save.label.community_instance")}
+    </div>
+{/if}
+
 <div id="omnibox">
     <div
         id="input-container"
         class:focused={isFocused}
         class:downloadable={validLink($link)}
     >
-        <div
-            id="input-link-icon"
-            class:loading={isLoading || isBotCheckOngoing}
-        >
-            {#if isLoading || isBotCheckOngoing}
-                <IconLoader2 />
-            {:else}
-                <IconLink />
-            {/if}
-        </div>
-
+        <OmniboxIcon loading={isLoading || isBotCheckOngoing} />
         <input
             id="link-area"
             bind:value={$link}
@@ -229,12 +218,13 @@
     }
 
     #input-container {
+        --input-padding: 10px;
         display: flex;
         box-shadow: 0 0 0 1.5px var(--input-border) inset;
         border-radius: var(--border-radius);
-        padding: 0 10px;
+        padding: 0 var(--input-padding);
         align-items: center;
-        gap: 10px;
+        gap: var(--input-padding);
         font-size: 14px;
         flex: 1;
     }
@@ -243,40 +233,21 @@
         padding-right: 0;
     }
 
+    #input-container.downloadable:dir(rtl) {
+        padding-right: var(--input-padding);
+        padding-left: 0;
+    }
+
     #input-container.focused {
         box-shadow: 0 0 0 1.5px var(--secondary) inset;
         outline: var(--secondary) 0.5px solid;
     }
 
-    #input-link-icon {
-        display: flex;
-    }
-
-    #input-link-icon :global(svg) {
-        stroke: var(--gray);
-        width: 18px;
-        height: 18px;
-        stroke-width: 2px;
-    }
-
-    #input-link-icon.loading :global(svg) {
-        animation: spin 0.7s infinite linear;
-    }
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-
-    #input-container.focused #input-link-icon :global(svg) {
+    #input-container.focused :global(#input-icons svg) {
         stroke: var(--secondary);
     }
 
-    #input-container.downloadable #input-link-icon :global(svg) {
+    #input-container.downloadable :global(#input-icons svg) {
         stroke: var(--secondary);
     }
 
@@ -284,7 +255,7 @@
         display: flex;
         width: 100%;
         margin: 0;
-        padding: 10px 0;
+        padding: var(--input-padding) 0;
         height: 18px;
 
         align-items: center;
@@ -329,6 +300,12 @@
 
     #paste-mobile-text {
         display: none;
+    }
+
+    #instance-label {
+        font-size: 13px;
+        color: var(--gray);
+        font-weight: 500;
     }
 
     @media screen and (max-width: 440px) {
