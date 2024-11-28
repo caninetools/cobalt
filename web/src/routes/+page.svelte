@@ -19,7 +19,7 @@
         data-first-focus
         data-focus-ring-hidden
     >
-        <Meowbalt emotion="smile" />
+        <Meowbalt emotion="caninetools" />
         <Omnibox />
     </main>
     <div id="terms-note">
