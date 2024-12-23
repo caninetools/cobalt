@@ -48,7 +48,7 @@ const transformSessionData = (cookie) => {
         return;
 
     const values = { ...cookie.values() };
-    const REQUIRED_VALUES = [ 'access_token', 'refresh_token' ];
+    const REQUIRED_VALUES = ['access_token', 'refresh_token'];
 
     if (REQUIRED_VALUES.some(x => typeof values[x] !== 'string')) {
         return;
@@ -66,10 +66,18 @@ const transformSessionData = (cookie) => {
 
 const cloneInnertube = async (customFetch) => {
     const shouldRefreshPlayer = lastRefreshedAt + PLAYER_REFRESH_PERIOD < new Date();
+
+    const rawCookie = getCookie('youtube');
+    const rawCookieValues = rawCookie?.values();
+    const cookie = rawCookie?.toString();
+
     if (!innertube || shouldRefreshPlayer) {
         innertube = await Innertube.create({
             fetch: customFetch,
-            retrieve_player: false,
+            retrieve_player: !!cookie,
+            cookie,
+            po_token: rawCookieValues?.po_token,
+            visitor_data: rawCookieValues?.visitor_data,
         });
         lastRefreshedAt = +new Date();
     }
@@ -80,30 +88,30 @@ const cloneInnertube = async (customFetch) => {
         innertube.session.api_version,
         innertube.session.account_index,
         innertube.session.player,
-        undefined,
+        cookie,
         customFetch ?? innertube.session.http.fetch,
         innertube.session.cache
     );
 
-    const cookie = getCookie('youtube_oauth');
-    const oauthData = transformSessionData(cookie);
+    const oauthCookie = getCookie('youtube_oauth');
+    const oauthData = transformSessionData(oauthCookie);
 
     if (!session.logged_in && oauthData) {
         await session.oauth.init(oauthData);
         session.logged_in = true;
     }
 
-    if (session.logged_in) {
+    if (session.logged_in && oauthData) {
         if (session.oauth.shouldRefreshToken()) {
             await session.oauth.refreshAccessToken();
         }
 
-        const cookieValues = cookie.values();
+        const cookieValues = oauthCookie.values();
         const oldExpiry = new Date(cookieValues.expiry_date);
         const newExpiry = new Date(session.oauth.oauth2_tokens.expiry_date);
 
         if (oldExpiry.getTime() !== newExpiry.getTime()) {
-            updateCookieValues(cookie, {
+            updateCookieValues(oauthCookie, {
                 ...session.oauth.client_id,
                 ...session.oauth.oauth2_tokens,
                 expiry_date: newExpiry.toISOString()
@@ -115,7 +123,7 @@ const cloneInnertube = async (customFetch) => {
     return yt;
 }
 
-export default async function(o) {
+export default async function (o) {
     let yt;
     try {
         yt = await cloneInnertube(
@@ -132,6 +140,8 @@ export default async function(o) {
         } else throw e;
     }
 
+    const cookie = getCookie('youtube')?.toString();
+
     let useHLS = o.youtubeHLS;
 
     // HLS playlists don't contain the av1 video format, at least with the iOS client
@@ -139,9 +149,20 @@ export default async function(o) {
         useHLS = false;
     }
 
+    let innertubeClient = "ANDROID";
+
+    if (cookie) {
+        useHLS = false;
+        innertubeClient = "WEB";
+    }
+
+    if (useHLS) {
+        innertubeClient = "IOS";
+    }
+
     let info;
     try {
-        info = await yt.getBasicInfo(o.id, useHLS ? 'IOS' : 'ANDROID');
+        info = await yt.getBasicInfo(o.id, innertubeClient);
     } catch (e) {
         if (e?.info) {
             const errorInfo = JSON.parse(e?.info);
@@ -166,7 +187,7 @@ export default async function(o) {
     const playability = info.playability_status;
     const basicInfo = info.basic_info;
 
-    switch(playability.status) {
+    switch (playability.status) {
         case "LOGIN_REQUIRED":
             if (playability.reason.endsWith("bot")) {
                 return { error: "youtube.login" }
@@ -241,7 +262,7 @@ export default async function(o) {
             } else {
                 throw new Error("couldn't fetch the HLS playlist");
             }
-        }).catch(() => {});
+        }).catch(() => { });
 
         if (!fetchedHlsManifest) {
             return { error: "youtube.no_hls_streams" };
@@ -322,7 +343,7 @@ export default async function(o) {
         }
 
         const checkFormat = (format, pCodec) => format.content_length &&
-                (format.mime_type.includes(codecList[pCodec].videoCodec)
+            (format.mime_type.includes(codecList[pCodec].videoCodec)
                 || format.mime_type.includes(codecList[pCodec].audioCodec));
 
         // sort formats & weed out bad ones
@@ -436,6 +457,10 @@ export default async function(o) {
             urls = audio.uri;
         }
 
+        if (innertubeClient === "WEB" && innertube) {
+            urls = audio.decipher(innertube.session.player);
+        }
+
         return {
             type: "audio",
             isAudioOnly: true,
@@ -462,11 +487,17 @@ export default async function(o) {
                 width: video.width,
                 height: video.height,
             });
+
             filenameAttributes.resolution = `${video.width}x${video.height}`;
             filenameAttributes.extension = codecList[codec].container;
 
             video = video.url;
             audio = audio.url;
+
+            if (innertubeClient === "WEB" && innertube) {
+                video = video.decipher(innertube.session.player);
+                audio = audio.decipher(innertube.session.player);
+            }
         }
 
         filenameAttributes.qualityLabel = `${resolution}p`;
