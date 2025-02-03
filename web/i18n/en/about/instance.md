@@ -13,7 +13,7 @@
 
 this instance of cobalt is hosted by [canine.tools](https://canine.tools). you can read more about the canine.tools project [here](https://canine.tools/about).
 
-this subdomain is proxied through cloudflare to prevent abuse from bots & scrapers against the api.
+this subdomain is proxied through cloudflare to prevent abuse from bots & scrapers against the api. all outbound requests are on a rotating proxy to bypass bans. this can lead to slow downloads sometimes.
 </section>
 
 <section id="apikeys">
@@ -22,14 +22,16 @@ this subdomain is proxied through cloudflare to prevent abuse from bots & scrape
     sectionId="apikeys"
 />
 
-api keys can be used to bypass the restrictions against the api. however, api keys are given by request and only under certain conditions:
+api keys are used to allow api access to your software. however, api keys are given by request and only under certain conditions:
 
 <ul>
 <li>no commercial use of any kind. this means you cannot use this api for your own "downloader" with ads</li>
 <li>no use for ai training</li>
 <li>no spam requests</li>
+<li>all requests must contain a user agent describing the application</li>
+<li>must follow <a href="https://canine.tools/terms/">these terms</a></li>
 </ul>
-keys can be revoked at any point under the discretion of this instance owner.
+keys can be revoked at any point under the discretion of this instance owner. to request an api key, please email <a href="mailto:hyper@canine.tools">hyper@canine.tools</a>. when requesting an api key, please tell us your reason, software, and user agent you wish to use. contact requests via other means will be ignored.
 </section>
 
 <section id="credits">
