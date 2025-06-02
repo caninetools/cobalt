@@ -65,6 +65,14 @@ this document is not final and will expand over time. feel free to improve it!
 
 [*view details*](#service-specific)
 
+### prometheus metrics vars
+| name                             | value example            |
+|:---------------------------------|:-------------------------|
+| METRICS                          | `1`                      |
+| METRICS_PORT                     | `9100`                   |
+
+[*view details*](#metrics)
+
 ## general
 [*jump to the table*](#general-vars)
 
@@ -262,3 +270,15 @@ the value is a string: `never` (default), `key`, or `always`:
 - when the var is not defined or set to `never`, `youtubeHLS` in POST requests will be ignored.
 - when set to `key`, only requests from api-key clients will be able to use `youtubeHLS` in POST requests.
 - when set to `always`, all requests will be able to use `youtubeHLS` in POST requests.
+## prometheus metrics
+[*jump to the table*](#prometheus-metrics-vars)
+
+### METRICS
+enable prometheus compatible metrics. metrics include: successful/failed requests to services, http requests, and http requests duration.
+
+the value is a number, either `0` or `1`.
+
+### METRICS_PORT
+port from which the metrics will be server under. these are local to the container/host.
+
+the value is a number from 1024 to 65535.
