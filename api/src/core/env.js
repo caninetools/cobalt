@@ -73,6 +73,9 @@ export const loadEnvs = (env = process.env) => {
         allServices,
         enabledServices,
 
+        metrics: env.METRICS_ENABLED,
+        metricsPort: env.METRICS_PORT,
+
         customInnertubeClient: env.CUSTOM_INNERTUBE_CLIENT,
         ytSessionServer: env.YOUTUBE_SESSION_SERVER,
         ytSessionReloadInterval: 300,
