@@ -319,7 +319,7 @@ export default async function({ host, patternMatch, params, authType }) {
                     break;
             }
 
-            incrementFailed(host);
+            if (env.metrics && env.metricsPort) incrementFailed(host);
 
             return createResponse("error", {
                 code: `error.api.${r.error}`,
@@ -327,7 +327,7 @@ export default async function({ host, patternMatch, params, authType }) {
             })
         }
 
-        incrementSuccessful(host);
+        if (env.metrics && env.metricsPort) incrementSuccessful(host);
 
         let localProcessing = params.localProcessing;
         const lpEnv = env.forceLocalProcessing;
