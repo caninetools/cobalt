@@ -36,6 +36,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./docker-build/Dockerfile-web
+          file: ./docker-build/Dockerfile-api
           push: true
           tags: ghcr.io/caninetools/cobalt:api
