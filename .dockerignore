@@ -4,6 +4,7 @@ desktop.ini
 
 # node
 node_modules
+**/node_modules
 
 # static build
 build
