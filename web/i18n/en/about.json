@@ -1,5 +1,6 @@
 {
     "page.general": "what's cobalt?",
+    "page.instance": "instance information",
 
     "page.community": "community & support",
 
@@ -22,6 +23,10 @@
     "heading.motivation": "motivation",
     "heading.testers": "beta testers",
     "heading.partners": "partners",
+    "heading.instance_about": "about our instance",
+    "heading.instance_services": "note about services",
+    "heading.instance_apikeys": "instance api keys",
+    "heading.instance_fork": "fork information",
 
     "support.github": "check out cobalt's source code, contribute changes, or report issues",
     "support.discord": "chat with the community and developers about cobalt or ask for help",
