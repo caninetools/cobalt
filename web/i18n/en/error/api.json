@@ -53,7 +53,7 @@
 
     "youtube.no_matching_format": "youtube didn't return any acceptable formats. cobalt may not support them or they're re-encoding on youtube's side. try again a bit later, but if this issue sticks, please report it!",
     "youtube.decipher": "youtube updated its decipher algorithm and i couldn't extract the info about the video. try again in a few seconds, but if this issue sticks, please report it!",
-    "youtube.login": "couldn't get this video because youtube asked the processing instance to prove that it's not a bot. try again in a few seconds, but if it still doesn't work, please report this issue!",
+    "youtube.login": "failed to get video, as youtube's bot protection blocked it. try again in a few minutes! \n\nthis is an issue with our instance, do not report to official cobalt channels for support.",
     "youtube.token_expired": "couldn't get this video because the youtube token expired and wasn't refreshed. try again in a few seconds, but if it still doesn't work, please report this issue!",
     "youtube.no_hls_streams": "couldn't find any matching HLS streams for this video. try downloading it without HLS!",
     "youtube.api_error": "youtube updated something about its api and i couldn't get any info about this video. try again in a few seconds, but if this issue sticks, please report it!",
