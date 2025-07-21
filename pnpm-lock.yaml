@@ -59,8 +59,8 @@ importers:
         specifier: 1.0.3
         version: 1.0.3
       youtubei.js:
-        specifier: ^15.0.0
-        version: 15.0.0
+        specifier: github:aeqe/YouTube.js#adplaybackcontext
+        version: https://codeload.github.com/aeqe/YouTube.js/tar.gz/b2f541f99500ee188dd7072ae5cc9941d94d01d3
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -191,8 +191,8 @@ packages:
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
 
-  '@bufbuild/protobuf@2.2.5':
-    resolution: {integrity: sha512-/g5EzJifw5GF8aren8wZ/G5oMuPoGeS6MQD3ca8ddcvdXR5UELUfdTZITCGNhNXynY/AYl3Z4plmxdj/tRl/hQ==}
+  '@bufbuild/protobuf@2.6.1':
+    resolution: {integrity: sha512-DaG6XlyKpz08bmHY5SGX2gfIllaqtDJ/KwVoxsmP22COOLYwDBe7yD3DZGwXem/Xq7QOc9cuR7R3MpAv5CFfDw==}
 
   '@datastructures-js/heap@4.3.3':
     resolution: {integrity: sha512-UcUu/DLh/aM4W3C8zZfwxxm6/6FIZUlm3mcAXuNOCa6Aj4iizNvNXQyb8DjZQH2jKSQbMRyNlngP6TPimuGjpQ==}
@@ -2185,8 +2185,9 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  youtubei.js@15.0.0:
-    resolution: {integrity: sha512-giPZREn+q0z8Jr45NUcJUXE7QA2+UD2jx5FR+ULdnexvtHg5uQZr9Am8aYcECPKzbBNe6ksBD1yT4SKNbhpRqA==}
+  youtubei.js@https://codeload.github.com/aeqe/YouTube.js/tar.gz/b2f541f99500ee188dd7072ae5cc9941d94d01d3:
+    resolution: {tarball: https://codeload.github.com/aeqe/YouTube.js/tar.gz/b2f541f99500ee188dd7072ae5cc9941d94d01d3}
+    version: 14.0.0
 
   zimmerframe@1.1.2:
     resolution: {integrity: sha512-rAbqEGa8ovJy4pyBxZM70hg4pE6gDgaQ0Sl9M3enG3I0d6H4XSAM3GeNGLKnsBpuijUow064sf7ww1nutC5/3w==}
@@ -2201,7 +2202,7 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
 
-  '@bufbuild/protobuf@2.2.5': {}
+  '@bufbuild/protobuf@2.6.1': {}
 
   '@datastructures-js/heap@4.3.3': {}
 
@@ -2400,8 +2401,7 @@ snapshots:
     dependencies:
       levn: 0.4.1
 
-  '@fastify/busboy@2.1.1':
-    optional: true
+  '@fastify/busboy@2.1.1': {}
 
   '@fontsource/ibm-plex-mono@5.0.13': {}
 
@@ -3965,7 +3965,6 @@ snapshots:
   undici@5.28.4:
     dependencies:
       '@fastify/busboy': 2.1.1
-    optional: true
 
   undici@6.21.3: {}
 
@@ -4043,12 +4042,12 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  youtubei.js@15.0.0:
+  youtubei.js@https://codeload.github.com/aeqe/YouTube.js/tar.gz/b2f541f99500ee188dd7072ae5cc9941d94d01d3:
     dependencies:
-      '@bufbuild/protobuf': 2.2.5
+      '@bufbuild/protobuf': 2.6.1
       jintr: 3.3.1
       tslib: 2.6.3
-      undici: 6.21.3
+      undici: 5.28.4
 
   zimmerframe@1.1.2: {}
 
