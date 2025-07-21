@@ -41,6 +41,12 @@ a portion of cobalt's processing infrastructure
 is provided by our long-standing partner, [royalehosting.net]({partners.royalehosting})!
 </section>
 
+<section id="licenses">
+<SectionHeading
+    title={$t("about.heading.licenses")}
+    sectionId="licenses"
+/>
+
 cobalt api (processing server) code is open source and licensed under [AGPL-3.0]({docs.apiLicense}).
 
 cobalt frontend code is [source first](https://sourcefirst.com/) and is licensed under [CC-BY-NC-SA 4.0]({docs.webLicense}).
